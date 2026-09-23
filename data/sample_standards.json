@@ -1,0 +1,269 @@
+{
+  "standards": [
+    {
+      "is_number": "IS 1239-1:2004",
+      "title": "Mild Steel Tubes, Tubulars and Other Wrought Steel Fittings - Part 1: Mild Steel Tubes",
+      "scope": "Covers requirements for mild steel tubes used in water, gas, steam and air lines and for structural purposes",
+      "department": "Metallurgical Engineering",
+      "category": "Steel Tubes and Pipes",
+      "year": 2004,
+      "latest_amendment": "Amd 1 (2019)",
+      "status": "current",
+      "mandatory_certification": true,
+      "normative_references": ["IS 228-1", "IS 1500", "IS 1608", "IS 4711"],
+      "keywords": ["steel tubes", "mild steel", "pipes", "water supply", "gas lines"]
+    },
+    {
+      "is_number": "IS 10500:2012",
+      "title": "Drinking Water - Specification",
+      "scope": "Prescribes the requirements and methods of sampling and test for drinking water",
+      "department": "Food and Agriculture",
+      "category": "Water Quality",
+      "year": 2012,
+      "latest_amendment": "Amd 1 (2018)",
+      "status": "current",
+      "mandatory_certification": false,
+      "normative_references": ["IS 3025 series", "IS 1622"],
+      "keywords": ["drinking water", "potable water", "water quality", "water testing"]
+    },
+    {
+      "is_number": "IS 4736:1986",
+      "title": "Hot Dip Zinc Coatings on Mild Steel Tubes",
+      "scope": "Covers requirements for hot dip zinc coatings on mild steel tubes for corrosion protection",
+      "department": "Metallurgical Engineering",
+      "category": "Coating and Surface Treatment",
+      "year": 1986,
+      "latest_amendment": "Reaffirmed 2020",
+      "status": "current",
+      "mandatory_certification": false,
+      "normative_references": ["IS 1239-1", "IS 2629", "IS 6745"],
+      "keywords": ["galvanizing", "zinc coating", "corrosion protection", "marine environment", "coastal"]
+    },
+    {
+      "is_number": "IS 4984:2016",
+      "title": "High Density Polyethylene Pipes for Potable Water Supplies",
+      "scope": "Specifies requirements for HDPE pipes for water supply, including pressure ratings and dimensions",
+      "department": "Chemical Engineering",
+      "category": "Plastic Pipes",
+      "year": 2016,
+      "latest_amendment": null,
+      "status": "current",
+      "mandatory_certification": true,
+      "normative_references": ["IS 10500", "IS 12235", "IS 7328"],
+      "keywords": ["HDPE pipes", "plastic pipes", "potable water", "water supply"]
+    },
+    {
+      "is_number": "IS 16102-1:2012",
+      "title": "Self-Ballasted LED Lamps for General Lighting Services - Part 1: Safety Requirements",
+      "scope": "Covers safety requirements for self-ballasted LED lamps with integrated means for stable light output",
+      "department": "Electrotechnical",
+      "category": "Lighting Equipment",
+      "year": 2012,
+      "latest_amendment": "Amd 2 (2022)",
+      "status": "current",
+      "mandatory_certification": true,
+      "normative_references": ["IS 10322-5", "IS 15885-2-1", "IS 16103"],
+      "keywords": ["LED lamps", "LED bulbs", "lighting", "energy efficient", "general lighting"]
+    },
+    {
+      "is_number": "IS 10322-5:2018",
+      "title": "Luminaires - Part 5: Particular Requirements for Floodlights",
+      "scope": "Specifies requirements for floodlights designed for use with tungsten filament, tubular fluorescent and other discharge lamps",
+      "department": "Electrotechnical",
+      "category": "Lighting Equipment",
+      "year": 2018,
+      "latest_amendment": null,
+      "status": "current",
+      "mandatory_certification": false,
+      "normative_references": ["IS 10322-1", "IS 16102", "IS 16107"],
+      "keywords": ["luminaires", "floodlights", "lighting fixtures", "office lighting"]
+    },
+    {
+      "is_number": "IS 269:2015",
+      "title": "Ordinary Portland Cement - Specification",
+      "scope": "Covers the chemical, physical and mechanical requirements of ordinary Portland cement (OPC)",
+      "department": "Civil Engineering",
+      "category": "Cement",
+      "year": 2015,
+      "latest_amendment": "Amd 1 (2019)",
+      "status": "current",
+      "mandatory_certification": true,
+      "normative_references": ["IS 4031 series", "IS 4032", "IS 650"],
+      "keywords": ["OPC cement", "Portland cement", "construction", "concrete", "road construction"]
+    },
+    {
+      "is_number": "IS 455:2015",
+      "title": "Portland Slag Cement - Specification",
+      "scope": "Specifies requirements for Portland slag cement (PSC) with slag content between 25-70%",
+      "department": "Civil Engineering",
+      "category": "Cement",
+      "year": 2015,
+      "latest_amendment": null,
+      "status": "current",
+      "mandatory_certification": true,
+      "normative_references": ["IS 4031 series", "IS 269", "IS 12089"],
+      "keywords": ["PSC cement", "slag cement", "construction", "marine construction"]
+    },
+    {
+      "is_number": "IS 1489-1:2015",
+      "title": "Portland Pozzolana Cement - Part 1: Fly Ash Based",
+      "scope": "Covers requirements for Portland pozzolana cement using fly ash as pozzolanic material",
+      "department": "Civil Engineering",
+      "category": "Cement",
+      "year": 2015,
+      "latest_amendment": null,
+      "status": "current",
+      "mandatory_certification": true,
+      "normative_references": ["IS 4031 series", "IS 269", "IS 3812-1"],
+      "keywords": ["PPC cement", "fly ash cement", "construction", "eco-friendly"]
+    },
+    {
+      "is_number": "IS 13252-1:2010",
+      "title": "Information Technology Equipment - Safety - Part 1: General Requirements",
+      "scope": "Covers safety requirements for IT equipment including computers, laptops, monitors and peripherals",
+      "department": "Electrotechnical",
+      "category": "IT Equipment",
+      "year": 2010,
+      "latest_amendment": "Amd 2 (2019)",
+      "status": "current",
+      "mandatory_certification": true,
+      "normative_references": ["IS 616", "IS 13252-2", "IEC 62368"],
+      "keywords": ["computer safety", "laptop", "IT equipment", "information technology"]
+    },
+    {
+      "is_number": "IS 15683:2018",
+      "title": "Portable Fire Extinguishers - Performance and Construction",
+      "scope": "Specifies requirements for construction, performance and testing of portable fire extinguishers",
+      "department": "Civil Engineering",
+      "category": "Fire Safety Equipment",
+      "year": 2018,
+      "latest_amendment": null,
+      "status": "current",
+      "mandatory_certification": true,
+      "normative_references": ["IS 2190", "IS 4947", "IS 15682"],
+      "keywords": ["fire extinguisher", "fire safety", "portable extinguisher", "fire fighting"]
+    },
+    {
+      "is_number": "IS 4148:2018",
+      "title": "Surgical Rubber Gloves",
+      "scope": "Covers requirements for sterile and non-sterile surgical rubber gloves for medical use",
+      "department": "Medical Equipment",
+      "category": "Medical Devices",
+      "year": 2018,
+      "latest_amendment": null,
+      "status": "current",
+      "mandatory_certification": true,
+      "normative_references": ["IS 4905", "IS 5949", "IS 10993-5"],
+      "keywords": ["surgical gloves", "medical gloves", "rubber gloves", "hospital supplies"]
+    },
+    {
+      "is_number": "IS 15778:2007",
+      "title": "Chlorinated Polyvinyl Chloride (CPVC) Pipes for Potable Hot and Cold Water Distribution Supplies",
+      "scope": "Specifies requirements for CPVC pipes suitable for conveying potable water at temperatures up to 93 degrees C",
+      "department": "Chemical Engineering",
+      "category": "Plastic Pipes",
+      "year": 2007,
+      "latest_amendment": "Amd 1 (2015)",
+      "status": "current",
+      "mandatory_certification": true,
+      "normative_references": ["IS 10500", "IS 4905", "ASTM D2846"],
+      "keywords": ["CPVC pipes", "hot water pipes", "plumbing", "potable water"]
+    },
+    {
+      "is_number": "IS 2062:2011",
+      "title": "Hot Rolled Medium and High Tensile Structural Steel",
+      "scope": "Covers requirements for hot rolled medium and high tensile structural steel plates, strips, shapes and sections",
+      "department": "Metallurgical Engineering",
+      "category": "Structural Steel",
+      "year": 2011,
+      "latest_amendment": "Amd 2 (2015)",
+      "status": "current",
+      "mandatory_certification": true,
+      "normative_references": ["IS 228", "IS 1608", "IS 1599"],
+      "keywords": ["structural steel", "construction steel", "building material", "MS plates"]
+    },
+    {
+      "is_number": "IS 1893-1:2016",
+      "title": "Criteria for Earthquake Resistant Design of Structures - Part 1: General Provisions and Buildings",
+      "scope": "Covers general provisions and seismic design criteria for buildings and structures in earthquake zones",
+      "department": "Civil Engineering",
+      "category": "Structural Design",
+      "year": 2016,
+      "latest_amendment": null,
+      "status": "current",
+      "mandatory_certification": false,
+      "normative_references": ["IS 456", "IS 800", "IS 13920"],
+      "keywords": ["earthquake design", "seismic design", "structural design", "building code"]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "IS 1239-1:2004",
+      "target": "IS 4736:1986",
+      "type": "allied_standard",
+      "description": "Coating standard for corrosion protection"
+    },
+    {
+      "source": "IS 1239-1:2004",
+      "target": "IS 10500:2012",
+      "type": "normative_reference",
+      "description": "Water quality standard for drinking water applications"
+    },
+    {
+      "source": "IS 4984:2016",
+      "target": "IS 10500:2012",
+      "type": "normative_reference",
+      "description": "Water quality standard reference"
+    },
+    {
+      "source": "IS 16102-1:2012",
+      "target": "IS 10322-5:2018",
+      "type": "allied_standard",
+      "description": "Luminaire standard for LED applications"
+    },
+    {
+      "source": "IS 269:2015",
+      "target": "IS 455:2015",
+      "type": "allied_standard",
+      "description": "Alternative cement type"
+    },
+    {
+      "source": "IS 269:2015",
+      "target": "IS 1489-1:2015",
+      "type": "allied_standard",
+      "description": "Alternative cement type"
+    },
+    {
+      "source": "IS 13252-1:2010",
+      "target": "IS 16102-1:2012",
+      "type": "allied_standard",
+      "description": "Related safety standard"
+    },
+    {
+      "source": "IS 2062:2011",
+      "target": "IS 1893-1:2016",
+      "type": "normative_reference",
+      "description": "Seismic design requirements for structural steel"
+    }
+  ],
+  "certifications": [
+    {
+      "type": "BIS_PRODUCT_CERTIFICATION",
+      "name": "ISI Mark",
+      "description": "Mandatory for products covered under BIS Compulsory Certification scheme",
+      "applicable_standards": ["IS 1239-1:2004", "IS 4984:2016", "IS 16102-1:2012", "IS 269:2015", "IS 455:2015", "IS 1489-1:2015", "IS 13252-1:2010", "IS 15683:2018", "IS 4148:2018", "IS 15778:2007", "IS 2062:2011"]
+    },
+    {
+      "type": "CRS",
+      "name": "Compulsory Registration Scheme",
+      "description": "Required for electronics and IT products",
+      "applicable_standards": ["IS 13252-1:2010", "IS 16102-1:2012"]
+    },
+    {
+      "type": "HALLMARKING",
+      "name": "BIS Hallmarking",
+      "description": "Mandatory for gold jewelry and artifacts",
+      "applicable_standards": []
+    }
+  ]
+}
