@@ -11,7 +11,143 @@ import json
 from typing import Dict, List
 
 # Configuration
-API_URL = "http://localhost:8000"
+API_URL = st.secrets.get("API_URL", "http://localhost:8000") if hasattr(st, 'secrets') else "http://localhost:8000"
+DEMO_MODE = True  # Enable demo mode when backend is unavailable
+
+# Demo data for when backend is not available
+DEMO_STANDARDS = [
+    {"is_number": "IS 269:2015", "title": "Ordinary Portland Cement - Specification", "category": "Cement", "mandatory_certification": True,
+     "scope": "This standard covers the requirements for ordinary portland cement used for general concrete construction. It specifies physical and chemical requirements, packaging, marking, and sampling."},
+    {"is_number": "IS 455:2015", "title": "Portland Slag Cement - Specification", "category": "Cement", "mandatory_certification": True,
+     "scope": "This standard covers portland slag cement made by grinding together portland cement clinker, granulated blast furnace slag and gypsum. Ideal for marine and coastal environments."},
+    {"is_number": "IS 1489-1:2015", "title": "Portland Pozzolana Cement (Fly Ash Based) - Specification", "category": "Cement", "mandatory_certification": True,
+     "scope": "This standard covers fly ash based portland pozzolana cement manufactured by blending OPC clinker with fly ash. Good durability against sulfate attack."},
+    {"is_number": "IS 456:2000", "title": "Plain and Reinforced Concrete - Code of Practice", "category": "Concrete", "mandatory_certification": False,
+     "scope": "This code covers the general structural use of plain and reinforced concrete. It covers materials, design, and construction practices."},
+    {"is_number": "IS 383:2016", "title": "Coarse and Fine Aggregate for Concrete - Specification", "category": "Aggregates", "mandatory_certification": False,
+     "scope": "This standard covers the requirements for aggregates, crushed or uncrushed, derived from natural sources for use in concrete."},
+    {"is_number": "IS 1786:2008", "title": "High Strength Deformed Steel Bars for Concrete Reinforcement", "category": "Steel", "mandatory_certification": True,
+     "scope": "This standard covers the requirements for high strength deformed steel bars for use as reinforcement in concrete."},
+    {"is_number": "IS 3025 (Part 17):1984", "title": "Methods of Sampling and Test for Water", "category": "Water", "mandatory_certification": False,
+     "scope": "This standard covers methods for testing water used in concrete mixing and curing."},
+    {"is_number": "IS 10500:2012", "title": "Drinking Water - Specification", "category": "Water", "mandatory_certification": False,
+     "scope": "This standard prescribes the requirements and methods of sampling and test for drinking water."},
+    {"is_number": "IS 16660:2017", "title": "LED Luminaires for General Lighting", "category": "Electrical", "mandatory_certification": True,
+     "scope": "This standard covers the safety and performance requirements for LED luminaires for general lighting purposes."},
+    {"is_number": "IS 15885:2018", "title": "Self-Ballasted LED Lamps for General Lighting", "category": "Electrical", "mandatory_certification": True,
+     "scope": "This standard covers self-ballasted LED lamps for general lighting service with rated voltage up to 250V."},
+    {"is_number": "IS 2190:2010", "title": "Selection, Installation and Maintenance of Portable Fire Extinguishers", "category": "Fire Safety", "mandatory_certification": True,
+     "scope": "This standard covers requirements for selection, installation and maintenance of portable fire extinguishers."},
+    {"is_number": "IS 15683:2018", "title": "Fire Extinguisher - ABC Dry Powder Type", "category": "Fire Safety", "mandatory_certification": True,
+     "scope": "This standard covers the requirements for ABC dry powder type fire extinguishers."},
+    {"is_number": "IS 1239-1:2004", "title": "Steel Tubes, Tubulars and Other Wrought Steel Fittings - Part 1: Steel Tubes", "category": "Steel Pipes", "mandatory_certification": False,
+     "scope": "This standard covers requirements for seamless and welded steel tubes for water, gas, steam and air lines."},
+    {"is_number": "IS 4736:1986", "title": "Hot Dipped Zinc Coated Mild Steel Tube", "category": "Steel Pipes", "mandatory_certification": False,
+     "scope": "This standard covers hot dipped zinc coated mild steel tubes suitable for potable water supply and general engineering."},
+]
+
+DEMO_SEARCH_RESULTS = {
+    "cement": {
+        "query_understood": "Cement for road construction in coastal area",
+        "context_detected": {"coastal_environment": True, "road_construction": True, "government_procurement": True},
+        "primary_standards": [
+            {"is_number": "IS 269:2015", "title": "Ordinary Portland Cement - Specification", "scope": "This standard covers ordinary portland cement for general construction. Specifies physical, chemical requirements and testing methods.", "relevance_score": 95, "mandatory_certification": True, "match_reasons": ["Exact match: cement", "Context: construction"], "amendments": "Amendment 1 (2019)"},
+            {"is_number": "IS 455:2015", "title": "Portland Slag Cement - Specification", "scope": "Portland slag cement made with blast furnace slag. Excellent for marine and coastal environments due to sulfate resistance.", "relevance_score": 92, "mandatory_certification": True, "match_reasons": ["Match: cement", "Context: coastal - slag cement recommended"], "amendments": None},
+            {"is_number": "IS 1489-1:2015", "title": "Portland Pozzolana Cement (Fly Ash Based)", "scope": "Fly ash based PPC. Good durability, lower heat of hydration. Suitable for mass concreting.", "relevance_score": 88, "mandatory_certification": True, "match_reasons": ["Match: cement", "Alternative for durability"], "amendments": None},
+        ],
+        "allied_standards": [
+            {"is_number": "IS 456:2000", "title": "Code of Practice for Plain and Reinforced Concrete", "scope": "General structural design code for concrete", "relevance_score": 80, "match_reasons": ["Dependency: referenced by cement standards"]},
+            {"is_number": "IS 383:2016", "title": "Aggregates for Concrete - Specification", "scope": "Requirements for coarse and fine aggregates", "relevance_score": 75, "match_reasons": ["Dependency: required for concrete work"]},
+        ],
+        "certifications": [
+            {"type": "BIS", "name": "BIS Certification Mark (ISI Mark)", "mandatory": True, "applicable_to": "IS 269:2015"},
+            {"type": "BIS", "name": "BIS Certification Mark (ISI Mark)", "mandatory": True, "applicable_to": "IS 455:2015"},
+        ],
+        "total_found": 5
+    },
+    "led": {
+        "query_understood": "LED bulbs for government office",
+        "context_detected": {"electrical": True, "government_procurement": True, "energy_efficiency": True},
+        "primary_standards": [
+            {"is_number": "IS 16660:2017", "title": "LED Luminaires for General Lighting", "scope": "Safety and performance requirements for LED luminaires for general lighting in offices and buildings.", "relevance_score": 96, "mandatory_certification": True, "match_reasons": ["Exact match: LED", "Context: office lighting"], "amendments": None},
+            {"is_number": "IS 15885:2018", "title": "Self-Ballasted LED Lamps for General Lighting", "scope": "Requirements for self-ballasted LED lamps including safety, performance, and energy efficiency.", "relevance_score": 94, "mandatory_certification": True, "match_reasons": ["Match: LED bulbs", "Context: general lighting"], "amendments": "Amendment 1 (2020)"},
+        ],
+        "allied_standards": [
+            {"is_number": "IS 10322-5-1:1994", "title": "Luminaires Part 5 Particular Requirements Section 1", "scope": "Safety requirements for luminaires", "relevance_score": 70, "match_reasons": ["Dependency: general luminaire safety"]},
+        ],
+        "certifications": [
+            {"type": "BIS", "name": "BIS Certification Mark (ISI Mark)", "mandatory": True, "applicable_to": "IS 16660:2017"},
+            {"type": "BEE", "name": "BEE Star Rating", "mandatory": True, "applicable_to": "IS 15885:2018"},
+        ],
+        "total_found": 3
+    },
+    "steel": {
+        "query_understood": "Steel pipes for water supply",
+        "context_detected": {"water_supply": True, "piping": True},
+        "primary_standards": [
+            {"is_number": "IS 1239-1:2004", "title": "Steel Tubes for Water, Gas and Steam", "scope": "Requirements for mild steel tubes suitable for screwing to BS 21 pipe threads. For water, gas, steam lines.", "relevance_score": 94, "mandatory_certification": False, "match_reasons": ["Exact match: steel pipes", "Context: water supply"], "amendments": None},
+            {"is_number": "IS 4736:1986", "title": "Hot Dipped Zinc Coated Mild Steel Tube", "scope": "Zinc coated steel tubes for potable water supply. Corrosion resistant coating for longer life.", "relevance_score": 91, "mandatory_certification": False, "match_reasons": ["Match: steel pipes", "Context: water - galvanized recommended"], "amendments": "Reaffirmed 2017"},
+        ],
+        "allied_standards": [
+            {"is_number": "IS 1387:1993", "title": "General Requirements for Supply of Metallic Materials", "scope": "General requirements for inspection, packaging and marking", "relevance_score": 65, "match_reasons": ["Dependency: metallic material supply"]},
+        ],
+        "certifications": [],
+        "total_found": 3
+    },
+    "fire": {
+        "query_understood": "Fire extinguisher for school",
+        "context_detected": {"fire_safety": True, "public_building": True, "mandatory_compliance": True},
+        "primary_standards": [
+            {"is_number": "IS 15683:2018", "title": "ABC Dry Powder Type Fire Extinguisher", "scope": "Requirements for ABC type portable fire extinguishers using monoammonium phosphate as extinguishing agent.", "relevance_score": 97, "mandatory_certification": True, "match_reasons": ["Exact match: fire extinguisher", "Context: school - ABC type recommended"], "amendments": None},
+            {"is_number": "IS 2190:2010", "title": "Selection, Installation and Maintenance of Fire Extinguishers", "scope": "Code of practice for selection, installation, inspection and maintenance of portable fire extinguishers.", "relevance_score": 92, "mandatory_certification": True, "match_reasons": ["Match: fire extinguisher", "Context: installation guidance"], "amendments": None},
+        ],
+        "allied_standards": [
+            {"is_number": "IS 2189:2008", "title": "Selection, Installation and Maintenance of Automatic Fire Detection and Alarm System", "scope": "Requirements for fire detection systems", "relevance_score": 70, "match_reasons": ["Related: fire safety systems"]},
+        ],
+        "certifications": [
+            {"type": "BIS", "name": "BIS Certification Mark (ISI Mark)", "mandatory": True, "applicable_to": "IS 15683:2018"},
+        ],
+        "total_found": 3
+    }
+}
+
+DEMO_AUDIT_RESULT = {
+    "total_references": 5,
+    "valid_count": 2,
+    "error_count": 2,
+    "warning_count": 1,
+    "errors": [
+        {"standard": "IS 456:1978", "message": "WITHDRAWN - This standard has been superseded", "suggestion": "Replace with IS 456:2000 (Plain and Reinforced Concrete - Code of Practice)"},
+        {"standard": "IS 4825:1968", "message": "WITHDRAWN - This standard has been superseded", "suggestion": "Replace with IS 4825:2020 (Masonry Cement - Specification)"},
+    ],
+    "warnings": [
+        {"standard": "IS 269:2015", "message": "Amendment 1 (2019) not referenced", "suggestion": "Update reference to include latest amendment: IS 269:2015/Amd 1:2019"},
+    ],
+    "valid_standards": [
+        {"is_number": "IS 383:2016", "title": "Coarse and Fine Aggregate for Concrete - Specification"},
+        {"is_number": "IS 10500:2012", "title": "Drinking Water - Specification"},
+    ],
+    "summary": "Found 2 errors and 1 warning that need attention."
+}
+
+DEMO_GRAPH_RESULT = {
+    "root": "IS 269:2015",
+    "root_details": {"title": "Ordinary Portland Cement - Specification", "category": "Cement"},
+    "total_dependencies": 5,
+    "flat_list": ["IS 269:2015", "IS 4031-1:1996", "IS 4031-2:1999", "IS 4031-4:1988", "IS 4032:1985", "IS 650:1991"],
+    "tree": {
+        "id": "IS 269:2015",
+        "details": {"title": "Ordinary Portland Cement - Specification"},
+        "children": [
+            {"id": "IS 4031-1:1996", "details": {"title": "Methods of Physical Tests for Hydraulic Cement - Part 1: Fineness"}, "children": []},
+            {"id": "IS 4031-2:1999", "details": {"title": "Methods of Physical Tests - Part 2: Determination of Fineness by Blaine"}, "children": []},
+            {"id": "IS 4031-4:1988", "details": {"title": "Methods of Physical Tests - Part 4: Consistency of Standard Cement Paste"}, "children": []},
+            {"id": "IS 4032:1985", "details": {"title": "Method of Chemical Analysis of Hydraulic Cement"}, "children": []},
+            {"id": "IS 650:1991", "details": {"title": "Standard Sand for Testing Cement - Specification"}, "children": []},
+        ]
+    },
+    "certifications": [{"description": "BIS Certification Mark (ISI Mark) is MANDATORY for cement sold in India"}]
+}
 
 st.set_page_config(
     page_title="StandardsAI - Indian Standards Recommendation",
@@ -156,49 +292,93 @@ def check_api_health() -> bool:
         return False
 
 
-def search_standards(query: str) -> Dict:
+def get_demo_search_result(query: str) -> Dict:
+    """Get demo search result based on query keywords."""
+    query_lower = query.lower()
+    if "cement" in query_lower or "concrete" in query_lower or "road" in query_lower or "coastal" in query_lower:
+        result = DEMO_SEARCH_RESULTS["cement"].copy()
+        result["query_understood"] = query
+        return result
+    elif "led" in query_lower or "bulb" in query_lower or "light" in query_lower or "lamp" in query_lower:
+        result = DEMO_SEARCH_RESULTS["led"].copy()
+        result["query_understood"] = query
+        return result
+    elif "steel" in query_lower or "pipe" in query_lower or "tube" in query_lower or "water supply" in query_lower:
+        result = DEMO_SEARCH_RESULTS["steel"].copy()
+        result["query_understood"] = query
+        return result
+    elif "fire" in query_lower or "extinguisher" in query_lower or "safety" in query_lower:
+        result = DEMO_SEARCH_RESULTS["fire"].copy()
+        result["query_understood"] = query
+        return result
+    else:
+        result = DEMO_SEARCH_RESULTS["cement"].copy()
+        result["query_understood"] = query
+        return result
+
+
+def search_standards(query: str, use_demo: bool = False) -> Dict:
     """Search for standards."""
+    if use_demo and DEMO_MODE:
+        return get_demo_search_result(query)
     try:
         response = requests.post(
             f"{API_URL}/api/v1/recommend",
-            json={"query": query, "max_results": 10}
+            json={"query": query, "max_results": 10},
+            timeout=5
         )
         return response.json()
     except Exception as e:
+        if DEMO_MODE:
+            return get_demo_search_result(query)
         return {"error": str(e)}
 
 
-def audit_text(text: str) -> Dict:
+def audit_text(text: str, use_demo: bool = False) -> Dict:
     """Audit tender text."""
+    if use_demo and DEMO_MODE:
+        return DEMO_AUDIT_RESULT
     try:
         response = requests.post(
             f"{API_URL}/api/v1/audit/text",
-            json={"text": text}
+            json={"text": text},
+            timeout=10
         )
         return response.json()
     except Exception as e:
+        if DEMO_MODE:
+            return DEMO_AUDIT_RESULT
         return {"error": str(e)}
 
 
-def get_graph(standard_id: str, depth: int = 2) -> Dict:
+def get_graph(standard_id: str, depth: int = 2, use_demo: bool = False) -> Dict:
     """Get dependency graph."""
+    if use_demo and DEMO_MODE:
+        return DEMO_GRAPH_RESULT
     try:
         response = requests.get(
             f"{API_URL}/api/v1/graph/{standard_id}",
-            params={"depth": depth}
+            params={"depth": depth},
+            timeout=5
         )
         return response.json()
     except Exception as e:
+        if DEMO_MODE:
+            return DEMO_GRAPH_RESULT
         return {"error": str(e)}
 
 
-def get_all_standards() -> List:
+def get_all_standards(use_demo: bool = False) -> List:
     """Get list of all standards."""
+    if use_demo and DEMO_MODE:
+        return DEMO_STANDARDS
     try:
-        response = requests.get(f"{API_URL}/api/v1/standards")
+        response = requests.get(f"{API_URL}/api/v1/standards", timeout=5)
         data = response.json()
         return data.get("standards", [])
     except:
+        if DEMO_MODE:
+            return DEMO_STANDARDS
         return []
 
 
@@ -213,9 +393,19 @@ with st.sidebar:
     api_healthy = check_api_health()
     if api_healthy:
         st.success("API Connected")
+        use_demo = False
     else:
-        st.error("API Not Connected")
-        st.info("Start the backend:\n```\ncd backend\nuvicorn app.main:app --reload\n```")
+        if DEMO_MODE:
+            st.info("Demo Mode Active")
+            st.caption("Using sample data for demonstration")
+            use_demo = True
+        else:
+            st.error("API Not Connected")
+            st.info("Start the backend:\n```\ncd backend\nuvicorn app.main:app --reload\n```")
+            use_demo = False
+
+    # Store in session state for use in other tabs
+    st.session_state['use_demo'] = use_demo if 'use_demo' not in st.session_state or not api_healthy else st.session_state.get('use_demo', use_demo)
 
     st.markdown("---")
     st.markdown("""
@@ -271,8 +461,9 @@ with tab1:
             search_btn = True
 
     if search_btn and query:
-        with st.spinner("Searching..."):
-            results = search_standards(query)
+        use_demo = st.session_state.get('use_demo', not check_api_health())
+        with st.spinner("Searching..." if not use_demo else "Loading demo results..."):
+            results = search_standards(query, use_demo=use_demo)
 
         if "error" in results:
             st.error(f"Error: {results['error']}")
@@ -361,8 +552,9 @@ Note: All materials must meet the specified Indian Standards.
         )
 
         if st.button("Audit Document", type="primary"):
-            with st.spinner("Auditing..."):
-                result = audit_text(tender_text)
+            use_demo = st.session_state.get('use_demo', not check_api_health())
+            with st.spinner("Auditing..." if not use_demo else "Loading demo audit results..."):
+                result = audit_text(tender_text, use_demo=use_demo)
 
             if "error" in result:
                 st.error(f"Error: {result['error']}")
@@ -431,7 +623,8 @@ with tab3:
     st.markdown("Visualize how standards are interconnected through normative references")
 
     # Get all standards for dropdown
-    all_standards = get_all_standards()
+    use_demo = st.session_state.get('use_demo', not check_api_health())
+    all_standards = get_all_standards(use_demo=use_demo)
 
     if all_standards:
         standard_options = {f"{s['is_number']} - {s['title'][:50]}": s['is_number'] for s in all_standards}
@@ -448,8 +641,8 @@ with tab3:
         if st.button("Show Dependencies", type="primary"):
             standard_id = standard_options[selected]
 
-            with st.spinner("Loading graph..."):
-                result = get_graph(standard_id, depth)
+            with st.spinner("Loading graph..." if not use_demo else "Loading demo graph..."):
+                result = get_graph(standard_id, depth, use_demo=use_demo)
 
             if "error" in result:
                 st.error(f"Error: {result['error']}")
